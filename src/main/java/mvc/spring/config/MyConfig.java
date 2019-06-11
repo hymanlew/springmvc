@@ -1,11 +1,16 @@
 package mvc.spring.config;
 
+import mvc.spring.bean.Animal;
+import mvc.spring.bean.Color;
 import mvc.spring.bean.User;
 import mvc.spring.condition.LinuxCondition;
+import mvc.spring.condition.MyImportBeanRegistrar;
+import mvc.spring.condition.MyImportSelector;
 import mvc.spring.condition.WinCondition;
 import org.springframework.context.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
+
 
 // 该配置类就 == xml 配置文件
 @Configuration
@@ -39,6 +44,11 @@ import org.springframework.stereotype.Service;
 //                @ComponentScan()
 //        }
 //)
+
+//@Import(Color.class)
+//@Import({Color.class, Animal.class})
+//@Import({MyImportSelector.class})
+@Import(MyImportBeanRegistrar.class)
 public class MyConfig {
 
     /**
@@ -66,4 +76,14 @@ public class MyConfig {
     public User user2(){
         return new User();
     }
+
+    /**
+     * 给容器中注册组件的几种方式：
+     *
+     * 1，包扫描（@ComponentScan）,和组件注解（@Controller,@service,@Repository,@Component），这种方式主要用于自定义的 bean 对象。
+     * 2，@bean 注解，这种方式是用于添加导入的第三方包里的组件。
+     * 3，@Import 注解，这种是快速的向容器中导入一个组件。它是在配置类上注解的，id 默认是组件的全类名。
+     * 4，@ImportSelector，实现这个接口并重写方法，返回需要导入的组件的全类名数组。
+     * 5，@ImportBeanDefinitionRegistrar，
+     */
 }
