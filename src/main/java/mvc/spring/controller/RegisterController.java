@@ -3,6 +3,9 @@ package mvc.spring.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import mvc.spring.service.DemoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,8 +28,11 @@ public class RegisterController {
 	
 	@RequestMapping("/login.do")
 	public String login() {
-		
 		return "login";
 	}
 
+	// 设置为不必须要找到（因为它默认为 true，找不到则会抛异常）
+	@Qualifier("service")
+	@Autowired(required = false)
+	private DemoService service;
 }

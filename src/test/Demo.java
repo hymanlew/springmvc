@@ -2,6 +2,7 @@ package test;
 
 import mvc.spring.bean.User;
 import mvc.spring.config.MyConfig;
+import mvc.spring.config.MyConfigOfPropertyValue;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -55,5 +56,16 @@ public class Demo {
         // 在 @Bean 注解上直接命名，即 @Bean("user")
         String[] names = context.getBeanNamesForType(User.class);
         System.out.println(Arrays.asList(names));
+    }
+
+    @Test
+    public void t4(){
+        context = new AnnotationConfigApplicationContext(MyConfigOfPropertyValue.class);
+        User user = context.getBean(User.class);
+        System.out.println(user);
+
+        Environment environment = context.getEnvironment();
+        String data = environment.getProperty("user.salary");
+        System.out.println(data);
     }
 }

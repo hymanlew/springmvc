@@ -20,6 +20,9 @@
 
     <!--<context:component-scan base-package="mvc.spring"></context:component-scan>-->
 
+    <!-- 导入外部 properties 文件 -->
+    <!--<context:property-placeholder location="classpath:user.properties" />-->
+
     <!--  这里配置 handlermapping，是根据 bytype 查询，不需要id -->
     <!--<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">-->
         <!--<property name="mappings">-->

@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Scope;
  * 2，在 bean 注解中定义 init，destroy 方法。
  * 3，通过实现 InitializingBean 接口来定义初始化逻辑，实现 DisposableBean 接口来定义销毁逻辑。
  * 4，使用 JSR250 中的注解来定义，PostConstruct 初始化方法，PreDestroy 销毁方法。
- * 5，bean 的后置处理器，即在 bean 初始化前后进行一些处理工作。
+ * 5，bean 的后置处理器（BeanPostProcessor），即在 bean 初始化前后进行一些处理工作。
  *
  * 在单例模式时，容器启动时就创建对象也就自动执行 init 方法，容器关闭时自动执行 destroy 方法。
  * 而多例模式时，容器启动时不自动创建对象不执行 init 方法，容器关闭时也不自动执行 destroy 方法，而是自定义调用销毁方法。
