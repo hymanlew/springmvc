@@ -2,6 +2,7 @@ package mvc.spring.config;
 
 import mvc.spring.bean.Animal;
 import mvc.spring.bean.Color;
+import mvc.spring.bean.ColorFactoryBean;
 import mvc.spring.bean.User;
 import mvc.spring.condition.LinuxCondition;
 import mvc.spring.condition.MyImportBeanRegistrar;
@@ -84,6 +85,13 @@ public class MyConfig {
      * 2，@bean 注解，这种方式是用于添加导入的第三方包里的组件。
      * 3，@Import 注解，这种是快速的向容器中导入一个组件。它是在配置类上注解的，id 默认是组件的全类名。
      * 4，@ImportSelector，实现这个接口并重写方法，返回需要导入的组件的全类名数组。
-     * 5，@ImportBeanDefinitionRegistrar，
+     * 5，@ImportBeanDefinitionRegistrar，手动注册 bean 到容器中。
+     *
+     * 6，使用 spring 提供的 factoryBean（工厂bean）来注册实例对象。工厂bean 默认生成的是调用 getBean 产生的 bean 对象。
+     *    如果在测试方法中指定的是 context.getBean("&colorFactoryBean")，则 spring 才会返回工厂 bean 本身。
      */
+    @Bean
+    public ColorFactoryBean colorFactoryBean(){
+        return new ColorFactoryBean();
+    }
 }
