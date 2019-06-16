@@ -1,8 +1,11 @@
 package test;
 
+import mvc.spring.aop.MathCalculator;
 import mvc.spring.bean.User;
 import mvc.spring.config.MyConfig;
+import mvc.spring.config.MyConfigOfAop;
 import mvc.spring.config.MyConfigOfPropertyValue;
+import mvc.spring.config.MyConfigProfile;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -30,7 +33,6 @@ public class Demo {
         // 获取 bean 对象在 IOC 容器中的名字（即 bean 对象的 ID），也就是 @Bean 注解上的方法名，默认是输出为类名。当然也可以
         // 在 @Bean 注解上直接命名，即 @Bean("user")
         String[] names = context.getBeanNamesForType(User.class);
-
     }
 
     @Test
@@ -67,5 +69,33 @@ public class Demo {
         Environment environment = context.getEnvironment();
         String data = environment.getProperty("user.salary");
         System.out.println(data);
+    }
+
+    @Test
+    public void t5(){
+        // 创建一个无参的 context 构造器
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+        // 设置需要激活的环境
+        context.getEnvironment().setActiveProfiles("default","dev");
+        // 注册主配置类
+        context.register(MyConfigProfile.class);
+        // 启动并刷新容器
+        context.refresh();
+
+        Environment environment = context.getEnvironment();
+        String data = environment.getProperty("user.salary");
+        System.out.println(data);
+
+        context.close();
+    }
+
+    @Test
+    public void t6(){
+        context = new AnnotationConfigApplicationContext(MyConfigOfAop.class);
+        MathCalculator calculator = context.getBean(MathCalculator.class);
+        calculator.div(6, 2);
+
+        //calculator.div(6, 0);
+
     }
 }
