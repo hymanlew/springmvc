@@ -6,8 +6,10 @@ import mvc.spring.config.MyConfig;
 import mvc.spring.config.MyConfigOfAop;
 import mvc.spring.config.MyConfigOfPropertyValue;
 import mvc.spring.config.MyConfigProfile;
+import mvc.spring.extconfig.ExConfig;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationEvent;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
@@ -96,6 +98,16 @@ public class Demo {
         calculator.div(6, 2);
 
         //calculator.div(6, 0);
+    }
 
+    @Test
+    public void t7(){
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ExConfig.class);
+        //context.close();
+
+        // 发布事件
+        context.publishEvent(new ApplicationEvent("我发布的事件") {
+        });
+        context.close();
     }
 }
