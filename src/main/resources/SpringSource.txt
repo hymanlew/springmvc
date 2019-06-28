@@ -1,0 +1,22 @@
+Spring 容器的 refresh()，创建并刷新：
+
+1，prepareRefresh() 刷新前的预处理。
+    1-1，initPropertySource()，初始化一些属性设置，子类自定义个性化的属性设置。
+    1-2，getEnvironment().validateRequiredProperties()，属性校验合法性。
+    1-3，earlyApplicationEvents（LinkedHashSet），用于保存容器中一些早期的事件。
+
+2，obtainFreshBeanFactory()，获取 beanFactory。
+    2-1，refreshBeanFactory()，刷新创建 bean 工厂（默认创建了一个 DefaultListableBeanFactory），并创建唯一 ID。
+    2-2，getBeanFactory()，返回刚才创建的 DefaultListableBeanFactory 对象，并返回到上一层方法。
+
+3，prepareBeanFactory(beanFactory)，bean 工厂的预准备工作，进行一些配置。
+    3-1，设置 beanFactory 的类加载器，支持表达式解析器。
+    3-2，添加 addBeanPostProcessor（bean 对象的后置处理器，即 ApplicationContextAwareProcessor）。
+    3-3，ignoreDependencyInterface()，设置忽略的自动装配的接口。
+    3-4，注册可以解析的自动装配（即可以自动注入的组件），registerResolvableDependency()。
+    3-5，addBeanPostProcessor()，添加其他各种的后置处理器（Aspectj，environment，systemProperties，systemEnvironment）。
+
+4，postProcessBeanFactory，bean 工厂的后置处理器。invoke/registerBeanPostProcessors，执行并注册 bean 工厂的后置。
+
+=========================== 以上是 beanFactory 的创建及预准备工作 ======================================
+

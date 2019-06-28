@@ -19,7 +19,6 @@ import org.springframework.context.annotation.Scope;
  * 而多例模式时，容器启动时不自动创建对象不执行 init 方法，容器关闭时也不自动执行 destroy 方法，而是自定义调用销毁方法。
  */
 
-
 @Configuration
 public class MyconfigOfLifeCycle {
 

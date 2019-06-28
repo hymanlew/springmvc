@@ -7,6 +7,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.EventListenerMethodProcessor;
 
+import javax.servlet.http.HttpServlet;
+
 /**
  * 扩展配置：
  * BeanPostProcessor：是 bean对象的后置处理器，是bean对象创建并初始化后进行的拦截工作的类。
@@ -60,7 +62,10 @@ import org.springframework.context.event.EventListenerMethodProcessor;
  *
  * @EventListener 注解原理：
  *      1，是使用 EventListenerMethodProcessor 处理器类，它实现了 SmartInitializingSingleton 接口。
- *      2，该接口中的 afterSingletonsInstantiated 方法类似于容器中的 refresh() 方法的作用。
+ *      2，IOC 容器创建对象 --> refresh() 方法 --> 初始化所有剩下的单实例 bean 对象。
+ *      3，之后先创建所有的单实例 bean，然后循环它们判断是否是 SmartInitializingSingleton 接口类型。
+ *      3，如果是该类型，则调用该接口中的 afterSingletonsInstantiated 方法类似于容器中的 refresh() 方法的作用。
+ *      4，finishRefresh --> publishEvent（发布）ContextRefreshedEvent 事件。
  *
  * 容器中有哪些监听器：
  *      1，容器创建对象，调用 refresh() 方法。
