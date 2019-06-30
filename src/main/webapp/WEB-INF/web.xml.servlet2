@@ -9,7 +9,7 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  
+
 	<!--  Servlet 基本配置 -->
   <servlet>
   	<servlet-name>springmvc</servlet-name>
@@ -26,5 +26,5 @@
   	<servlet-name>springmvc</servlet-name>
   	<url-pattern>*.do</url-pattern>
   </servlet-mapping>
-  
+
 </web-app>
