@@ -116,6 +116,11 @@
             <groupId>Javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
             <version>3.0-alpha-1</version>
+            <!--
+            provided 表示被依赖的 jar 包在当前项目打包时不会被带入 jar 包，别的容器会提供。它参与了项目的编译，测试，运行
+            等周期，相当于 compile，只是在打包时被忽略。
+            -->
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
@@ -284,6 +289,10 @@
                 <plugin>
                     <artifactId>maven-war-plugin</artifactId>
                     <version>3.2.0</version>
+                    <!-- 使用注解版的 web 项目配置，因为不需要 web.xml 文件，要加上这个配置 -->
+                    <configuration>
+                        <failOnMissingWebXml>false</failOnMissingWebXml>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <artifactId>maven-install-plugin</artifactId>

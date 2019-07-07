@@ -1,0 +1,49 @@
+
+WEB 的三大组件：
+servlet（包括 DispatcherServlet），filter，listener（它们都要在 web.xml 中进行配置的）。
+
+而在 servlet3.0 版本以后，它提供了 web 的注解版的配置，而不用再使用 web.xml 进行配置了。并且为了防止 web 项目报错（报没有
+web.xml 配置文件），需要在 maven-war-plugin 插件中配置 failOnMissingWebXml 为 false。
+
+为了实现不通过web.xml 启动JavaEE项目，spring 容器提供了 javax.servlet.ServletContainerInitializer 接口。
+
+需要注意的是，servlet3.0 是 JSR315 的规范，需要 tomcat7 及以上版本才能支持。
+导入 servlet 3.0 的 jar包，在 project structure --> module --> dependencies 中加入 tomcat 的 library 包。
+
+
+1、Servlet容器在启动时会扫描当前应用里面，每一个jar包的 ServletContainerInitializer 的实现。
+2、并且 ServletContainerInitializer 的实现类，必须绑定在 META-INF/services/javax.servlet.ServletContainerInitializer 文件中。
+    文件的内容就是 ServletContainerInitializer 实现类的全类名；
+
+3、springMVC 对它的实现类是 SpringServletContainerInitializer（可察看 spring-web jar包下的文件配置），如果是自定义实现类的话，
+    就需要绑定到 META-INF 的对应文件中（即上一步的说明）。
+4、spring 应用一启动就会加载感兴趣的 WebApplicationInitializer 接口下的所有组件。并且为这些组件创建对象（前提是它们不是接口和
+    抽象类）。WebApplicationInitializer 接口下有三个依次继承的抽象类，分别是：
+
+    1、AbstractContextLoaderInitializer：创建根容器；createRootApplicationContext()；
+    	1、AbstractDispatcherServletInitializer：
+    			创建一个 web 的 ioc 容器：createServletApplicationContext();
+    			创建了 DispatcherServlet：createDispatcherServlet()；
+    			将创建的 DispatcherServlet 添加到 ServletContext 中，并提供一个映射方法用于自定义映射，getServletMappings();
+    	    1、AbstractAnnotationConfigDispatcherServletInitializer：注解方式配置的 DispatcherServlet 初始化器
+    			创建根容器：createRootApplicationContext()：getRootConfigClasses()，传入一个配置类。
+    			创建 web 的 ioc 容器：createServletApplicationContext()：获取配置类 getServletConfigClasses();
+
+
+总结：
+容器在启动应用的时候，会扫描当前应用每一个jar包里面 META-INF/services/javax.servlet.ServletContainerInitializer 文件，查找
+指定的实现类，启动并运行这个实现类的方法；传入感兴趣的类型（@HandlesTypes 指定的类型）；
+
+以注解方式来启动 SpringMVC，继承 AbstractAnnotationConfigDispatcherServletInitializer，并实现抽象方法指定 DispatcherServlet
+的配置信息。
+
+ServletContainerInitializer；
+@HandlesTypes；
+
+
+注解版定制 SpringMVC，不需要使用 spring*.xml 等等的配置文件：
+1、@EnableWebMvc，开启SpringMVC定制配置功能，等同于配置文件中的 <mvc:annotation-driven/>；
+
+2、配置组件（视图解析器、视图映射、静态资源映射、拦截器。。。），extends WebMvcConfigurerAdapter。
+
+3、参考 springMVC 的官方文档：https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html。
