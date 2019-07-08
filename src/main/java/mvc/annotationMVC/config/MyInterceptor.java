@@ -11,7 +11,7 @@ public class MyInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        System.out.println("======== 目标方法执行之前执行");
+        System.out.println("======== 目标方法执行之前执行 === "+httpServletRequest.getRequestURI());
         return true;
     }
 
