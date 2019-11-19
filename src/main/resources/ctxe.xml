@@ -52,7 +52,11 @@
         <property name="suffix" value=".jsp"></property>
     </bean>
 
-
+    <bean id="userService" class="mvc.spring.service.UserService">
+        <!-- 自定义 bean 进行引用 -->
+        <!--<property name="userDao" ref="userDao"/>-->
+        <!--<property name="userInfoDao" ref="userInfoDao"/>-->
+    </bean>
 </beans>
 
 

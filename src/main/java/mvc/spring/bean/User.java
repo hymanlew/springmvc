@@ -2,8 +2,10 @@ package mvc.spring.bean;
 
 import org.springframework.beans.factory.annotation.Value;
 
+import java.io.Serializable;
+
 // 当前类，只是起到测试作用，不做任何的业务
-public class User {
+public class User implements Serializable {
 
 	/**
 	 * 使用 value 注解进行赋值：
