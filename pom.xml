@@ -114,15 +114,16 @@
 
         <!-- Servlet API，应用于 jsp 中 -->
         <dependency>
-            <groupId>Javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>3.0-alpha-1</version>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>4.0.1</version>
             <!--
             provided 表示被依赖的 jar 包在当前项目打包时不会被带入 jar 包，别的容器会提供。它参与了项目的编译，测试，运行
             等周期，相当于 compile，只是在打包时被忽略。
             -->
-            <scope>provided</scope>
+            <!--<scope>provided</scope>-->
         </dependency>
+
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>jsp-api</artifactId>
@@ -263,6 +264,11 @@
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
             <version>1.1.14</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>4.0.1</version>
         </dependency>
     </dependencies>
 

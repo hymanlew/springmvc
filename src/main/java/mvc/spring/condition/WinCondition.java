@@ -9,6 +9,7 @@ import org.springframework.core.type.AnnotatedTypeMetadata;
 
 /**
  * 自定义 condition
+ * matches 方法指定了一个条件匹配规则，返回 true 则注入所标注的 Bean 类到 IOC 容器，反之则不注入。
  */
 public class WinCondition implements Condition {
 

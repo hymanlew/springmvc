@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+    xmlns:jee="http://www.springframework.org/schema/jee"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd
+        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.2.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd">
+
+
+	<!--
+	    配置需要被 Spring 管理的类
+		id : 自定义，推荐能与类名联想上的名字
+		class ： 被管理的类的完整名，即“包名+类名”
+	-->
+    <bean id="user" class="basic.entity.User"></bean>
+    
+    <!--  通过构造方法	 -->
+    <bean id="date" class="java.util.Date"></bean>
+    
+    <!--  通过静态工厂	 -->
+    <bean id="calendar" class="java.util.Calendar" factory-method="getInstance"></bean>
+    
+    <!--  通过实例工厂	 -->
+    <bean id="userFactory" class="bean.UserFactory"></bean>
+    <bean id="u" factory-method="getUser" factory-bean="userFactory"></bean>
+    
+    <!--  单例与非单例	 -->
+    <bean lazy-init="true" scope="singleton" id="sin" class="bean.entity.SinUser" init-method="init" destroy-method="destroy"></bean>
+    <bean scope="prototype" id="pro" class="bean.entity.ProUser" init-method="init" destroy-method="destroy"></bean>
+  
+</beans>
+
+
+
